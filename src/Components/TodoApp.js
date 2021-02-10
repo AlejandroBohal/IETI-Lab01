@@ -4,48 +4,83 @@ import {TodoList} from './TodoList';
 export class TodoApp extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { items: [], text: '' };
+      this.state = { todos: [], text: '', priority:0, dueDate:new Date()};
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
   
     render() {
       return (
-        <div>
+        <>
           <h3>TODO</h3>
-          <TodoList todoList={this.state.items}/>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="new-todo">
+            <label htmlFor="text">
               What needs to be done?
             </label>
             <input
-              id="new-todo"
+              id="text"
+              name="text" 
+              type="text"
               onChange={this.handleChange}
               value={this.state.text}
             />
-            <button>
-              Add #{this.state.items.length + 1}
+            <label htmlFor="priority">
+              Priority
+            </label>
+            <input
+              id="priority"
+              name="priority" 
+              type="number"
+              onChange={this.handleChange}
+              value={this.state.priority}
+            />
+            <label htmlFor="dueDate">
+              DueDate
+            </label>
+            <input
+              id="dueDate"
+              name="dueDate" 
+              type="date"
+              onChange={this.handleChange}
+              value={this.state.dueDate}
+            />
+            <button type="submit" onClick={this.handleSubmit}>
+              Add #{this.state.todos.length + 1}
             </button>
           </form>
-        </div>
+          {
+            (
+              this.state.todos.length ?
+                <TodoList todoList={this.state.todos}/>
+              :
+              <p>Nothing to be done.</p>
+            )
+            
+          }
+          
+        </>
       );
     } 
-    handleChange(e) {
-      this.setState({ text: e.target.value });
+    handleChange({target}) {
+      this.setState({ [target.name]: target.value });
     }
-  
+
     handleSubmit(e) {
       e.preventDefault();
+      const {text,priority,dueDate} = this.state;
       if (!this.state.text.length) {
         return;
       }
-      const newItem = {
-        text: this.state.text,
-        id: Date.now()
-      };
+      const newTodo = {
+        text,
+        priority,
+        dueDate
+      }
       this.setState(prevState => ({
-        items: prevState.items.concat(newItem),
-        text: ''
+        todos: [...prevState.todos,newTodo],
+        text: '',
+        priority: 0,
+        dueDate: new Date()
       }));
     }
   }
