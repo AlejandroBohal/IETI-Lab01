@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import {TodoApp} from './Components/TodoApp';
 import reportWebVitals from './reportWebVitals';
 

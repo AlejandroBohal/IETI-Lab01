@@ -9,7 +9,7 @@ function App() {
   
   return (
     <>
-      <TodoApp/> 
+      <TodoList todoList={todos}/>
     </>
   );
 }

@@ -10,13 +10,26 @@ export class TodoList extends React.Component {
     render() {
         const todos = this.props.todoList;
         return (
-            <ul>
-                {
-                    todos.map((todo) => (
-                        <Todo {...todo} />
-                    ))
-                }
-            </ul>
+
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Task to do</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Due date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        todos.map((todo) => (
+                            <Todo {...todo} />
+                        ))
+                    }
+                </tbody>
+
+            </table>
+
+
         );
     }
 
